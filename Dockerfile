@@ -10,11 +10,19 @@ run npm install -g yarn
 env GOPATH /go
 run go get -d github.com/cockroachdb/cockroach
 run yarn config set registry https://registry.npmjs.org
-run (cd /go/src/github.com/cockroachdb/cockroach && sed -i 's/6.7.3/6.8.6","espree":"","escodegen":"","estraverse":"/g' pkg/ui/package.json && grep 6.8.6 pkg/ui/package.json && make buildoss)
+run (\
+	cd /go/src/github.com/cockroachdb/cockroach && \
+	git checkout v2.0.2 && \
+	mkdir bin && \
+	sed -i 's/6.7.3/6.8.6","espree":"","escodegen":"","estraverse":"/g' pkg/ui/package.json && \
+	grep 6.8.6 pkg/ui/package.json && \
+	make buildoss\
+	)
 add . /go/src/github.com/micromicromicro/testcockroach
 run (cd /go/src/github.com/micromicromicro/testcockroach && go install)
 from golang:1.10.2
 copy --from=build /go/bin/testcockroach .
+copy --from=build /go/src/github.com/cockroachdb/cockroach/cockroach .
 cmd ./testcockroach
 entrypoint []
 expose 8080
