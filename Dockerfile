@@ -8,9 +8,9 @@ run apt-get install -y libncurses-dev
 run curl -sL https://deb.nodesource.com/setup_10.x | bash - && apt-get install -y nodejs
 run npm install -g yarn
 env GOPATH /go
-run go get -d github.com/cockroachdb/cockroach
-run yarn config set registry https://registry.npmjs.org
 run (\
+	mkdir -p /go/src/github.com/cockroachdb && \
+	git clone --recurse-submodules https://github.com/cockroachdb/cockroach.git /go/src/github.com/cockroachdb/cockroach && \
 	cd /go/src/github.com/cockroachdb/cockroach && \
 	git checkout v2.0.2 && \
 	mkdir bin && \

@@ -5,13 +5,13 @@ As suggested [here](https://github.com/cockroachdb/cockroach/issues/4253) this i
 # Usage
 
 ```
-docker run -itd -p 26257:26257 --name testing_cockroach testcockroach:v2.0.2
+docker run -itd -p 26257:26257 --name testing_cockroach rendaw/testcockroach:v2.0.2
 ```
 
 Then create a database with:
 ```
 docker exec testing_cockroach ./cockroach sql --insecure --execute='CREATE DATABASE dog;'
-``
+```
 
 And connect with:
 ```
