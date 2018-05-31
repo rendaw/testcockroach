@@ -7,13 +7,13 @@ run apt-get install -y autoconf
 run apt-get install -y libncurses-dev
 run curl -sL https://deb.nodesource.com/setup_10.x | bash - && apt-get install -y nodejs
 run npm install -g yarn
-env GOPATH /go
 run (\
-	mkdir -p /go/src/github.com/cockroachdb && \
 	git clone --recurse-submodules https://github.com/cockroachdb/cockroach.git /go/src/github.com/cockroachdb/cockroach && \
 	cd /go/src/github.com/cockroachdb/cockroach && \
 	git checkout v2.0.2 && \
-	mkdir bin && \
+	make bin/.bootstrap && \
+	cp bin/* $(GOPATH)/bin && \
+	go-bindata -version && \
 	sed -i 's/6.7.3/6.8.6","espree":"","escodegen":"","estraverse":"/g' pkg/ui/package.json && \
 	grep 6.8.6 pkg/ui/package.json && \
 	make buildoss\
