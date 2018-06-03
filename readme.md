@@ -5,7 +5,7 @@ As suggested [here](https://github.com/cockroachdb/cockroach/issues/4253) this i
 # Usage
 
 ```
-docker run -itd -p 26257:26257 --name testing_cockroach rendaw/testcockroach:v2.0.2
+docker run -it --rm -p 26257:26257 --name testing_cockroach rendaw/testcockroach:v2.0.2
 ```
 
 Then create a database with:
